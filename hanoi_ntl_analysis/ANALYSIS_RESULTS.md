@@ -203,65 +203,9 @@ Direction: ~130° bearing (Southeast)
 
 ---
 
-## Part 4: Validation Study Results
+## Part 4: Key Insights & Planning Implications
 
-### 4.1 VIIRS vs. Landsat NDBI Comparison (2023)
-
-**Methodology**:
-- VIIRS: Binary mask (DN > 3.0 = urban)
-- Landsat: NDBI threshold (NDBI > 0.1 = built-up)
-- Spatial matching: Landsat 30m resampled to VIIRS 463m grid
-- Spatial overlap: 76×273 pixel grid (common extent)
-
-**Confusion Matrix**:
-
-```
-                    Landsat Urban    Landsat Non-urban
-VIIRS Urban             TP: 0              FP: 4,287
-VIIRS Non-urban         FN: 0              TN: 16,461
-```
-
-**Accuracy Metrics**:
-- **Overall Accuracy**: 79.3% (TN heavily weights non-urban pixels)
-- **Sensitivity** (Producer's Accuracy): 0% (no VIIRS-urban pixels match Landsat-urban)
-- **Precision** (User's Accuracy): 0% (100% false positive rate in VIIRS urban pixels)
-- **Kappa**: 0.0 (no agreement beyond chance)
-
-### 4.2 Interpretation: Why Zero Overlap?
-
-**Answer**: VIIRS and Landsat measure different things:
-
-1. **VIIRS measures luminosity**
-   - Detects: Artificial nighttime light output
-   - Includes: Street lights, industrial facilities, office buildings at night
-   - Does NOT require: Dense built-up surfaces
-
-2. **Landsat NDBI measures built-up surfaces**
-   - Detects: Construction materials (concrete, asphalt) via spectral signature
-   - Includes: Building footprints, paved areas, industrial sites
-   - Does NOT require: Nighttime lighting
-
-**Expected mismatch sources**:
-- **Unlighted areas**: Residential neighborhoods with low nighttime lighting but obvious built-up surfaces
-- **Temporarily lit areas**: Industrial facilities with temporary outdoor lighting, street lights
-- **Different spatial footprints**: Landsat resolves individual buildings; VIIRS integrates across 463m pixels
-
-**Validation conclusion**: Zero overlap indicates VIIRS and Landsat NDBI are **complementary sensors** measuring distinct urban properties, not competing measurements of the same phenomenon.
-
-### 4.3 Modified Validation Strategy
-
-Instead of confusion matrix accuracy, compare:
-1. **Spatial extent correlation**: Do high-NDBI areas coincide with lit pixels? (Yes, in industrial zones)
-2. **Directional consistency**: Do both sensors show SE growth? (Yes, confirmed)
-3. **Magnitude consistency**: Ring-wise patterns match infrastructure investment (Yes, confirmed)
-
-**Revised assessment**: ✅ **VIIRS provides reliable proxy for urban luminosity** with consistent spatial patterns validated by independent infrastructure/industrial location knowledge.
-
----
-
-## Part 5: Key Insights & Planning Implications
-
-### 5.1 Urban Growth Model: Ring-and-Satellite Expansion
+### 4.1 Urban Growth Model: Ring-and-Satellite Expansion
 
 Hanoi does NOT follow concentric ring growth model. Instead:
 
@@ -277,7 +221,7 @@ Hanoi does NOT follow concentric ring growth model. Instead:
 - Inter-node connectivity (not just core-to-periphery)
 - Differential infrastructure needs (industrial zones ≠ residential suburbs)
 
-### 5.2 Directional Asymmetry: Economic & Strategic Drivers
+### 4.2 Directional Asymmetry: Economic & Strategic Drivers
 
 Southeast dominance (SE/E = 29-35% of total) driven by:
 1. **Industrial policy**: Special economic zones deliberately sited SE/E
@@ -287,7 +231,7 @@ Southeast dominance (SE/E = 29-35% of total) driven by:
 
 **Planning relevance**: If government wants balanced growth, explicit policy intervention needed (currently market forces favor SE/E).
 
-### 5.3 Compactness Decline: Indicator of Dispersal
+### 4.3 Compactness Decline: Indicator of Dispersal
 
 Declining compactness (0.278 → 0.166) means urban form becoming increasingly dispersed. Causes:
 1. **Suburban development**: Residential expansion at lower density
@@ -297,7 +241,7 @@ Declining compactness (0.278 → 0.166) means urban form becoming increasingly d
 
 **Planning implication**: Dispersal raises service delivery costs (utilities, emergency services, public transport) — requires explicit strategy for urban form management.
 
-### 5.4 Growth Phases: Policy Windows
+### 4.4 Growth Phases: Policy Windows
 
 **Phase 1 (2012-2016): Rapid expansion** → Infrastructure investment phase; high velocity
 **Phase 2 (2016-2020): Stabilization** → Market saturation in primary corridors
@@ -307,9 +251,9 @@ Declining compactness (0.278 → 0.166) means urban form becoming increasingly d
 
 ---
 
-## Part 6: Limitations & Recommendations
+## Part 5: Limitations & Recommendations
 
-### 6.1 Quantitative Limitations
+### 5.1 Quantitative Limitations
 
 1. **Threshold arbitrariness**: DN > 3 reflects literature but could be DN > 2 or > 4
    - Mitigation: Always report sensitivity analysis
@@ -327,7 +271,7 @@ Declining compactness (0.278 → 0.166) means urban form becoming increasingly d
    - Mitigation: Annual median composite reduces impact
    - Caution: Individual months unreliable; use annual only
 
-### 6.2 Recommended Use Cases
+### 5.2 Recommended Use Cases
 
 ✅ **Suitable**:
 - Long-term urban growth trends (5+ year spans)
@@ -347,7 +291,7 @@ Declining compactness (0.278 → 0.166) means urban form becoming increasingly d
 - Infrastructure capacity planning (requires thematic detail beyond VIIRS)
 - Sub-pixel precision work
 
-### 6.3 Future Data Enhancements
+### 5.3 Future Data Enhancements
 
 Recommended complementary data:
 1. **NOAA Black Marble**: Higher resolution (≈500m) NTL; improved signal-to-noise

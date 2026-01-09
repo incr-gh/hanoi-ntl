@@ -26,9 +26,7 @@ This project constructs a consistent **12-year time series (2012-2023)** of nigh
    - **Centroid-shift analysis**: Track movement of urban center
 
 4. **Lightweight validation** using high-resolution imagery
-   - Sentinel-2 NDBI comparison (10m resolution)
    - Landsat 8/9 multi-spectral indices
-   - Accuracy metrics (confusion matrix, overall accuracy, Kappa)
    - Uncertainty discussion
 
 ---
@@ -160,37 +158,15 @@ Compactness = (4π × Area) / Perimeter²
 
 ### Comparison with High-Resolution Imagery
 
-**Data sources** (2022 validation year):
-1. **Sentinel-2 MSI** (10m, freely available)
-   - Compute NDBI: (SWIR - NIR) / (SWIR + NIR)
-   - NDBI > 0.1 indicates built-up areas
-
-2. **Landsat 8/9 OLI** (30m)
+**Data sources** (2023 validation year):
+1. **Landsat 8/9 OLI** (30m)
    - NDBI from bands 6 & 5
    - NDVI for vegetation filtering
-
-**Accuracy metrics**:
-- Confusion Matrix (TP, TN, FP, FN)
-- Overall Accuracy = (TP + TN) / Total
-- Producer's Accuracy (sensitivity)
-- User's Accuracy (precision)
-- Kappa coefficient
-
-**Expected results**: > 85% overall agreement acceptable for NTL studies
-
-### Uncertainty Sources
-
-1. **Spatial resolution**: VIIRS 463m vs. actual boundaries
-2. **Temporal mismatch**: Monthly composites may mask short-term variation
-3. **Threshold selection**: Tested via sensitivity analysis
-4. **Atmospheric effects**: Seasonal cloud cover (monsoon season)
-5. **Sensor artifacts**: Stray light, gain variations (mitigated by VCMCFG)
-
 ---
 
 ## Key Parameters (config.py)
 
-| Parameter | Value | Justification |
+| Parameter | Value | Description |
 |-----------|-------|---|
 | Study Period | 2012-2023 | Full VIIRS availability |
 | Analysis Region | Hanoi Municipality | Administrative boundary |
@@ -265,12 +241,6 @@ earthengine authenticate
 - Verify files downloaded from Google Drive to `data/viirs_raw/`
 - Check filename format: `VIIRS_DNB_{YEAR}_{MONTH}.tif`
 - Ensure GeoTIFF files are valid: `gdalinfo VIIRS_DNB_2023_01.tif`
-
-### Memory Issues with Large Rasters
-- Process one year at a time instead of full time series
-- Use xarray with dask for chunked processing
-- Reduce spatial resolution if needed
-
 ---
 
 ## Contact & Citation
@@ -279,8 +249,5 @@ earthengine authenticate
 **Data Source**: NOAA VIIRS DNB Monthly V1.0 via Google Earth Engine  
 **Analysis Period**: January 2024
 
-For questions or issues, see the main project notebook.
-
 ---
 
-**Last Updated**: January 9, 2026
