@@ -1,0 +1,78 @@
+# Python environment
+.venv/
+venv/
+env/
+ENV/
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Data directories (raw and processed)
+data/viirs_raw/
+data/landsat_raw/
+data/viirs_processed/
+data/validation/
+
+# Output files (large or temporary)
+outputs/
+results/
+*.tif
+*.tiff
+*.nc
+*.h5
+
+# Notebooks and IDE
+.ipynb_checkpoints/
+*.ipynb
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# GEE and credentials (sensitive)
+credentials.json
+token.json
+.earthengine/
+gee_*.csv
+
+# Temporary files
+*.log
+*.tmp
+.cache/
+temp/
+
+# OS specific
+.DS_Store
+.AppleDouble
+.LSOverride
+*.bak
+*.backup
+
+# Google Earth Engine export logs (optional - include or exclude as needed)
+# gee_export_log.csv
+# gee_landsat_export_log.csv
