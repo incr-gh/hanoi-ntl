@@ -76,6 +76,8 @@ def download_landsat_validation(year, output_dir):
             swir = image.select('SR_B6').float()
             nir = image.select('SR_B5').float()
             ndbi = swir.subtract(nir).divide(swir.add(nir)).rename('NDBI')
+            # Cast NDBI to float32 to match SR band data types
+            #ndbi = ndbi.toFloat32()
             return image.select(['SR_B2', 'SR_B3', 'SR_B4', 'SR_B5', 'SR_B6']).addBands(ndbi)
         
         landsat_ndbi = landsat.map(add_ndbi)
@@ -85,7 +87,7 @@ def download_landsat_validation(year, output_dir):
         
         # Export NDBI and other bands
         task = ee.batch.Export.image.toDrive(
-            image=composite.select(['NDBI', 'SR_B5', 'SR_B6']),
+            image=composite.select(['NDBI', 'SR_B5', 'SR_B6']).float(),
             description=f'Landsat_NDBI_{year}_Hanoi',
             folder='hanoi_ntl_analysis_validation',
             fileNamePrefix=f'Landsat_NDBI_{year}',
